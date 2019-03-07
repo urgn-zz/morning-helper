@@ -24,7 +24,7 @@ class Bot {
   }
 
   get send() {
-    return this.bot.sendMessage;
+    return this.bot.sendMessage.bind(this.bot);
   }
 }
 

@@ -9,4 +9,4 @@ const weather = new Weather(process.env.WEATHER_API_KEY);
 weather.getCurrentWeatherOnLocation(myPos)
     .then((result) => {
         console.log(result);
-    })
+    });
