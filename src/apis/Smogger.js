@@ -1,5 +1,5 @@
 const axios = require("axios");
-const _ = require("../Utils");
+const _ = require("../lib/Utils");
 const EPS = {
 	"StationList": "http://api.gios.gov.pl/pjp-api/rest/station/findAll",
 	"SensorList": "http://api.gios.gov.pl/pjp-api/rest/station/sensors/",
