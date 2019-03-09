@@ -25,7 +25,7 @@ class SmogApi {
 		return axios.get(EPS.StationData + sensorId);
 	}
 
-	async getSmogReportForMyCoordinates({lat, long}) {
+	async getSmogReportForMyCoordinates({latitude, longitude}) {
 		return (this.getAllStations().then(
 			(resp) => {
 				let closestDistance = Infinity;
@@ -34,7 +34,7 @@ class SmogApi {
 				resp.data.forEach(station => {
 					const distance = _.distanceInKmBetweenEarthCoordinates(
 						station.gegrLat, station.gegrLon, 
-						lat, long
+						latitude, longitude
 					);
 				
 					if (distance < closestDistance) {

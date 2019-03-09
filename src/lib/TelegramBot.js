@@ -9,13 +9,15 @@ class Bot {
   }
 
   initListeners() {
-    this.bot.on('message', (msg) => {
+    this.bot.on('message', async (msg) => {
       const chatId = msg.chat.id;
-      this.listeners.forEach((listener) => {
+      for (let i = 0; i < this.listeners.length; i++) {
+        const listener = this.listeners[i];
+        
         if (listener.accept(msg)) {
-          listener.react(chatId, msg);
+          await listener.react(chatId, msg);
         }
-      });
+      }
     });
   };
 

@@ -17,7 +17,7 @@ const morningBot = new MorningBot(db, smog, weather);
 
 const COMMAND_PARSER = /^\/([a-z0-9_])+(\@[a-z]\w*(_\w+)*)?([ \f\n\r\t\v\u00A0\u2028\u2029].*)?$/ig;
 
-telegram.addListener(() => true, (chatId, message) => {
+telegram.addListener(() => true, async (chatId, message) => {
   let result = morningBot.standardReply();
 
   if (message.text) {
@@ -34,11 +34,11 @@ telegram.addListener(() => true, (chatId, message) => {
         result = morningBot.locationRequest(chatId);
         break;
       case '/info':
-        result = morningBot.infoReply(chatId)
+        result = await morningBot.infoReply(chatId)
         break;
     }
   } else if (message.location) {
-    result = morningBot.locationReply(chatId, message.location);
+    result = await morningBot.locationReply(chatId, message.location);
   }
 
   telegram.send(chatId, result.text, result.options);

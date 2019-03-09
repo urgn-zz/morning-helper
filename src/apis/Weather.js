@@ -12,14 +12,12 @@ class Weather {
         this.apiKey = apiKey;
     }
 
-    async getLocationData({lat, long}) {
+    async getLocationData({latitude, longitude}) {
         const query = ApiKeys.MAIN + ApiKeys.GET_LOCATION + "?" + querystring.stringify({
             apikey: this.apiKey,
-            q: lat + "," + long
+            q: latitude + "," + longitude
         });
 
-        console.log(query);
-        
         return axios.get(query);
     }
 
@@ -35,8 +33,12 @@ class Weather {
         return this.getLocationData(location)
             .then(locData => this.getCurrentWeather(locData.data.Key))
             .then((response) => {
-                console.log(response.data);
-                debugger;
+                const data = response.data[0];
+                
+                return {
+                    temperature: data.Temperature.Metric.Value + data.Temperature.Metric.Unit,
+                    text: data.WeatherText
+                };
             })
     }
 }
